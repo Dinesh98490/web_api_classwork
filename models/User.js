@@ -33,3 +33,8 @@ const UserSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("User", UserSchema);
+
+//first step 1: make a model
+//  step 2: controllers
+// step 3:  routes
+// step 4: implements the user  in the index

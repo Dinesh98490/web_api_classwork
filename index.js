@@ -1,13 +1,19 @@
 require('dotenv').config()
-
 const express = require("express")
 const connectDB = require("./config/db")
-const userRoutes = require("./routes/userRoutes")
+const userRoutes = require("./routes/userRoutes") 
 const adminUserRoutes = require("./routes/amdin/adminUserRoute")
 const productRoute = require("./routes/amdin/productRoute")
 const categoryRoute = require('./routes/amdin/categoryRoute')
 const path = require("path")
+const cors = require("cors")
 const app = express()
+
+let corsOptions = {
+  origin: "*", // can provide list of domain
+
+}
+app.use(cors(corsOptions))
 
 // connection implemenations
 connectDB()
@@ -283,7 +289,7 @@ const PORT = process.env.PORT
 app.listen(
     PORT,
     () => {
-        console.log("Server running")
+        console.log("Server running", PORT)
     }
 )
 
