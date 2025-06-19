@@ -34,7 +34,7 @@ exports.createCategory = async (req, res) => {
 exports.getCategories = async (req, res) => {
   try {
     const categories = await Category.find().sort({ createdAt: -1 });
-    res.status(200).json(categories);
+    res.status(200).json({data:categories, success: true, message: "Fetch"});
   } catch (error) {
     res.status(500).json({ success: false, message: "Server error" });
   }
@@ -57,15 +57,21 @@ exports.getCategoryById = async (req, res) => {
 
 // Update category
 exports.updateCategory = async (req, res) => {
+
   try {
-    const { category_name } = req.body;
-
-    const updatedCategory = await Category.findByIdAndUpdate(
+    const filename = req.file?.path
+    const data ={
+      name: req.body.name
+    }
+    if(filename){
+      data.filepath - filename
+    }
+    const category = await Category.findByIdAndUpdate(
       req.params.id,
-      { category_name },
-      { new: true }
+      data,
+      {new: true}
     );
-
+   
     if (!updatedCategory)
       return res.status(404).json({ message: "Category not found" });
 
